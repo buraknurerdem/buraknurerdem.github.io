@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
+body{
+    font-family: "Gill Sans", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.h1-1{
+    text-align: center;
+    border-bottom: solid black 3px;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+.h3-1{
+    margin-top: 0px;
+    text-align: center;
+/*     background-color: lightblue;*/
+    /* border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+    border-bottom: solid black 3px;
+    border-left: solid black 3px;
+    border-right: solid black 3px;
+    border-bottom-left-radius: 15ch;
+    border-bottom-right-radius: 15ch;
+    cursor: pointer;
+}
+.grid-container-1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-gap: 20px; */
+}
+.grid-container-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5%;
+    margin: 5%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.card{
+    border: solid black 3px;
+    border-radius: 10px;
+    block-size: 400px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.card-name{
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.btn{
+    
+    background-color: darkred;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    /* display: inline-block; */
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: white;
+    color: darkred;
+    border: solid;
+    border-radius: 10px;
+    padding: 15px 32px;
+    border-color: darkred;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.thumb{
+    align-items: center;   
+    border: 2px solid black;
+    border-radius: 10px;
 }
