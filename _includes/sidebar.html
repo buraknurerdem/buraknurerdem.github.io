@@ -1,0 +1,41 @@
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <p>Personal Website of</p>
+      <h1>
+        <a href="{{ site.baseurl }}">
+          Burak&nbsp;Nur&nbsp;Erdem
+        </a>
+      </h1>
+      <p class="lead">{{ site.description }}</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="{{ site.baseurl }}">Home</a>
+
+      {% comment %}
+        The code below dynamically generates a sidebar nav of pages with
+        `layout: page` in the front-matter. See readme for usage.
+      {% endcomment %}
+
+      {% assign pages_list = site.pages | sort: 'order' %}
+      {% for node in pages_list %}
+        {% if node.title != null %}
+          {% if node.layout == "page" %}
+            <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      <!-- <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a> -->
+      <!-- <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a> -->
+
+      <br>
+      <p style="font-size:0.75rem;color:rgba(255, 255, 255, 1);margin-block-end:0px;">Profiles: </p>
+      <a href="https://www.linkedin.com/in/burak-nur-erdem/" target="_blank"><i style="color:rgba(255, 255, 255, 1);"class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="https://github.com/buraknurerdem" target="_blank"><i style="color:rgba(255, 255, 255, 1);"class="fa-brands fa-square-github" aria-hidden="true"></i></a>
+    </nav>
+
+    <!-- <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p> -->
+    <p style="font-size:0.5rem;">This website is created using the <a href="https://jekyllthemes.io/theme/hyde">Hyde</a> theme.</p>
+  </div>
+</div>

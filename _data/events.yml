@@ -1,0 +1,20 @@
+- title:          "Probability with / on random graphs: trees, networks, dimers, assignments"
+  url:            https://sites.google.com/view/probabilityinturkey/main
+  dates:          29/07/2024 - 04/08/2024
+  speaker:        false
+
+- title:          Graphs, Groups, and Automata
+  url:            https://fezagursey.bogazici.edu.tr/tr/graphs-groups-and-automata
+  dates:          16/05/2024
+  speaker:        false
+
+- title:          WGT-Workshop on Graph Theory and Its Applications-XI
+  url:            https://bilmuh.gtu.edu.tr/~dgozupek/wgt2023/
+  dates:          10/11/2023 - 11/11/2023
+  speaker:        true
+  talk_title:     Integer Programming Approach to Random Perfect Graph Generation and Triangle-free k-sparse Sets
+
+- title:          CIMPA Research School on Graph Structure and Complex Network Analysis
+  url:            https://bilmuh.gtu.edu.tr/~dgozupek/cimpa2023/
+  dates:          04/06/2023 - 16/06/2023
+  speaker:        false

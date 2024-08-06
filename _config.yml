@@ -1,0 +1,24 @@
+# Dependencies
+markdown:         kramdown
+plugins:          [jekyll-paginate, jekyll-gist]
+highlighter:      pygments
+
+# Permalinks
+permalink:        :title
+# relative_permalinks: true
+
+# Setup
+title:            "Burak Nur Erdem"
+tagline:          "M.Sc. Student and Teaching Assistant of Industrial Engineering"
+description:      "M.Sc. Student and Teaching Assistant of Industrial Engineering"
+url:              https://buraknurerdem.github.io
+baseurl:          ""
+
+author:
+name:             "Burak Nur Erdem"
+
+paginate:         5
+
+# Custom vars
+
+
