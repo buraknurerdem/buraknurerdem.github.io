@@ -1,18 +1,35 @@
-- term: 2023/2024 - Spring
+- term: 2025 Spring
+- courses:
+  - name: IE 203 Operations Research II
+    type: Teaching Assistant
+    href: /teaching/ie_203_spring_2025
+  - name: IE 456 Graph Theory
+    type: Teaching Assistant
+  - name: IE 481 Combinatorial Algorithms
+    type: Teaching Assistant
+
+- term: 2024 Fall
+- courses:
+  - name: IE 202 Operations Research I
+    type: Teaching Assistant
+  - name: IE 310 Operations Research (for CMPE)
+    type: Teaching Assistant
+
+- term: 2024 Spring
 - courses:
   - name: IE 203 Operations Research II
     type: Teaching Assistant
   - name: IE 456 Graph Theory
     type: Teaching Assistant
 
-- term: 2023/2024 - Fall
+- term: 2023 Fall
 - courses:
   - name: IE 202 Operations Research I
     type: Teaching Assistant
   - name: IE 518 Advanced Graph Theory
     type: Teaching Assistant
 
-- term: 2022/2023 - Spring
+- term: 2023 Spring
 - courses:
   - name: IE 201 Intermediate Programming
     type: Teaching Assistant
