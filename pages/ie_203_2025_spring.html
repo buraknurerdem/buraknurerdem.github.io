@@ -1,13 +1,13 @@
 ---
 layout: course
 title: Course Page
-permalink: /teaching/ie_203_spring_2025
+permalink: /teaching/ie_203_2025_spring
 ---
 
 <h2>IE 203 Operations Research II</h2>
 
 {% for file in site.static_files %}
-  {% if file.path contains "assets/ie_203_spring_2025/" %}
+  {% if file.path contains "assets/ie_203_2025_spring/" %}
     <p style="text-indent: 15px;"><a href="{{ file.path | relative_url }}">{{ file.name }}</a></p>
   {% endif %}
 {% endfor %}
