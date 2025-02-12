@@ -4,10 +4,52 @@ title: Course Page
 permalink: /teaching/ie_203_2025_spring
 ---
 
-<h2>IE 203 Operations Research II</h2>
+<div style="font-family: Arial, sans-serif; font-size: 16px;">
+  <h2>IE 203 Operations Research II - 2025 Spring</h2>
 
-{% for file in site.static_files %}
-  {% if file.path contains "assets/ie_203_2025_spring/" %}
-    <p style="text-indent: 15px;"><a href="{{ file.path | relative_url }}">{{ file.name }}</a></p>
-  {% endif %}
-{% endfor %}
+  <p style="margin-bottom: 0px;">
+    <b>Instructor:</b> İ. Kuban Altınel <br>
+    <span style="text-indent: 20px; display: inline-block;">
+      Office: M4034
+    </span> <br>
+    <span style="text-indent: 20px; display: inline-block;">
+      Office Hours: M 13:00 - 15:00, W 14:00 - 16:00
+    </span> <br>
+    <b>Teaching Assistant:</b> Burak Nur Erdem <br>
+    <span style="text-indent: 20px; display: inline-block;">
+      Office: M4015
+    </span> <br>
+    <span style="text-indent: 20px; display: inline-block;">
+      Office Hours: Th 14:00 - 16:00
+    </span> <br>
+    <b>Exams:</b> <br>
+    <ul>
+      <li> 
+        Quiz I: 06.03.2025, Thursday, 11:00 <br>
+        Location: TBA
+      </li>
+      <li> 
+        Midterm: 08.04.2025, Tuesday <br>
+        Location: TBA
+      </li>
+      <li> 
+        Quiz II: 08.05.2025, Thursday, 11:00 <br>
+        Location: TBA
+      </li>
+    </ul>
+  </p>
+
+  <h4>Related Files:</h4>
+
+  {% assign custom_order = "IE_203_Syllabus_2025_Spring.pdf, IE_203_PS1.pdf" | split: ", " %}
+
+  {% for filename in custom_order %}
+    {% for file in site.static_files %}
+      {% if file.path contains "assets/ie_203_2025_spring/" and file.name == filename %}
+        <p style="text-indent: 15px;margin-bottom: 0px;">
+          <a href="{{ file.path | relative_url }}">{{ file.name }}</a>
+        </p>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</div>
