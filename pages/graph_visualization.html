@@ -1,0 +1,58 @@
+---
+title: Graph Visualization
+permalink: /graph_visualization
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="public/css/graph_vis.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Visualization</title>
+</head>
+<body>
+
+    <div class="page_wrapper">
+        <div class="left_panel"">
+            <button class="back_button">
+                Back to Homepage
+            </button>
+            <textarea id="text_adj_mat">
+0,1,0,0,1,                
+1,0,1,0,0,                
+0,1,0,1,0,                
+0,0,1,0,1,                
+1,0,0,1,0,                
+            </textarea>
+            <button class="control_button" id="button_update_adj_mat">
+                Update
+            </button>
+        </div>
+        <div class="right_panel">
+            <div class="control_bar">
+                <button class="control_button">
+                    Move
+                </button>
+                <button class="control_button">
+                    Add Vertex
+                </button>
+                <button class="control_button">
+                    Add Edge
+                </button>
+                <button class="control_button">
+                    Remove Object
+                </button>
+            </div>
+            <div class="canvas_wrapper">
+                <canvas id="canvas">
+
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/graph_vis.js"></script>
+
+</body>
+</html>
