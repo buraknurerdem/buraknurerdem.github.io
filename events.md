@@ -17,7 +17,7 @@ order: 3
             <div style="font-weight:normal;padding-left:2rem;">
             {{ event.dates }}
             <br>
-            Title: <em>{{ event.talk_title }}</em>
+            Title of the Talk: <em>{{ event.talk_title }}</em>
              </div>
         </li>
 {% endfor %}
