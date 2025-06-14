@@ -8,7 +8,7 @@
   arxivcode: "2406.03290"
   year: 2025
   npages: 21
-  pdf: "assets/defective_Tfree.pdf"
+  pdf: "assets/defective_Tfree_formatted.pdf"
   doi: "https://doi.org/10.21136/MB.2025.0079-24"
   journal: Math. Bohem.
   abstract: "A set of vertices is $k$-sparse if it induces a graph with a maximum degree of at most $k$. In this missive, we consider the order of the largest $k$-sparse set in a triangle-free graph of fixed order.  We show, for example, that every triangle-free graph of order 11 contains a 1-sparse 5-set; every triangle-free graph of order 13 contains a 2-sparse 7-set; and every triangle-free graph of order 8 contains a 3-sparse 6-set. Further, these are all best possible. For fixed $k$, we consider the growth rate of the largest $k$-sparse set of a triangle-free graph of order $n$. Also, we consider Ramsey numbers of the following type. Given $i$, what is the smallest $n$ having the property that all triangle-free graphs of order $n$ contain a 4-cycle or a $k$-sparse set of order $i$. We use both direct proof techniques and an efficient graph enumeration algorithm to obtain several values for defective Ramsey numbers and a parameter related to largest sparse sets in triangle-free graphs, along with their extremal graphs."
