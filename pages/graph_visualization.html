@@ -6,53 +6,52 @@ permalink: /graph_visualization
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="public/css/graph_vis.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph Visualization</title>
+    <title>Graph Visualization Tool</title>
+    <link rel="stylesheet" href="{{ '/graph_visualization/css/graph_vis.css' | relative_url }}">
+    <link rel="icon" href="/public/favicon.ico" />
 </head>
 <body>
 
-    <div class="page_wrapper">
-        <div class="left_panel"">
-            <button class="back_button">
-                Back to Homepage
-            </button>
-            <textarea id="text_adj_mat">
-0,1,0,0,1,                
-1,0,1,0,0,                
-0,1,0,1,0,                
-0,0,1,0,1,                
-1,0,0,1,0,                
-            </textarea>
-            <button class="control_button" id="button_update_adj_mat">
-                Update
-            </button>
-        </div>
-        <div class="right_panel">
-            <div class="control_bar">
-                <button class="control_button">
-                    Move
-                </button>
-                <button class="control_button">
-                    Add Vertex
-                </button>
-                <button class="control_button">
-                    Add Edge
-                </button>
-                <button class="control_button">
-                    Remove Object
-                </button>
-            </div>
-            <div class="canvas_wrapper">
-                <canvas id="canvas">
-
-                </canvas>
-            </div>
-        </div>
+<div class="page_wrapper">
+    <div class="left_panel">
+        <button class="back_button" onclick="window.location.href='{{ '/' | relative_url }}'">
+            Back to Homepage
+        </button>
+        <textarea id="text_adj_mat">
+0,1,0,0,1
+1,0,1,0,0
+0,1,0,1,0
+0,0,1,0,1
+1,0,0,1,0
+        </textarea>
+        <button class="control_button" id="button_update_adj_mat">
+            Update
+        </button>
     </div>
 
-    <script src="scripts/graph_vis.js"></script>
+    <div class="resizer"></div>
+
+    <div class="right_panel">
+        <div class="control_bar">
+            <button class="control_button" id="button_add_vertex">Add Vertex (v)</button>
+            <button class="control_button" id="button_add_edge">Add Edge (e)</button>
+            <button class="control_button" id="button_delete">Delete Vertex/Edge (d)</button>
+            <button class="control_button" id="button_clear_graph">Clear Graph</button>
+        </div>
+        <div class="canvas_wrapper">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<!-- <script src="{{ '/graph_visualization/scripts/utils.js' | relative_url }}"></script> -->
+<!-- <script src="{{ '/graph_visualization/scripts/graph.js' | relative_url }}"></script> -->
+<!-- <script src="{{ '/graph_visualization/scripts/canvas.js' | relative_url }}"></script> -->
+<!-- <script src="{{ '/graph_visualization/scripts/resizer.js' | relative_url }}"></script> -->
+<script type="module" src="{{ '/graph_visualization/scripts/main.js' | relative_url }}"></script>
 
 </body>
 </html>

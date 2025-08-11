@@ -1,0 +1,94 @@
+body {
+    background-color: #1e1e1e;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* Layout container */
+.page_wrapper {
+    display: flex;
+    height: 100vh; /* Full screen height */
+}
+
+/* Left panel */
+.left_panel {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #2d2d2d;
+    color: white;
+    width: 250px; /* Fixed width */
+    box-sizing: border-box;
+}
+
+.back_button {
+    margin-bottom: 10px;
+}
+
+/* Resizer */
+.resizer {
+    width: 5px;
+    cursor: col-resize;
+    background-color: #444;
+}
+.resizer:hover {
+    background-color: #666;
+}
+
+/* Right panel */
+.right_panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #272727;
+}
+
+/* Top control bar */
+.control_bar {
+    display: flex;
+    gap: 5px;
+    padding: 10px;
+    background-color: #333;
+}
+
+.control_button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.control_button:hover {
+    background-color: #777;
+}
+
+.control_button:active{
+    background-color: #ccc;
+}
+
+.control_button.active{
+    background-color: #4CAF50;
+}
+
+/* Canvas area */
+.canvas_wrapper {
+    flex: 1;
+    margin: 20px;
+    background-color: rgb(109, 136, 181);
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Textarea */
+textarea {
+    min-width: 200px;
+    min-height: 200px;
+    /* max-width: 500px; */
+    max-height: 500px;
+    resize: vertical;
+}

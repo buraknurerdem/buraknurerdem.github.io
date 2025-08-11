@@ -30,6 +30,11 @@
         {% endif %}
       {% endfor %}
 
+      <a class="sidebar-nav-item{% if page.url == '/graph_visualization/' %} active{% endif %}" 
+        href="{{ '/graph_visualization' | relative_url }}">
+        Graph Visualization Tool
+      </a>
+
       <!-- <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a> -->
 
