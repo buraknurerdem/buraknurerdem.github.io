@@ -1,316 +1,4 @@
-import { getEdgeAtPosition, getMousePosition, getVertexAtPosition, getVertexIndexAtPosition, isPointCloseToLineSegment } from "./utils.js"
-
-class DragHandler {
-    constructor(canvas, graph, onUpdate) {
-        this.canvas = canvas;
-        this.graph = graph;
-        this.onUpdate = onUpdate;
-
-        this.isDraggingVertex = false;
-        this.draggedVertex = null;
-
-        this.clickOffset = { x: 0, y: 0 }
-
-        this.canvas.addEventListener("mousedown", (e) => this.onMouseDown(e));
-        this.canvas.addEventListener("mouseup", (e) => this.onMouseUp(e));
-        this.canvas.addEventListener("mousemove", (e) => this.onMouseMove(e));
-        this.canvas.addEventListener("mouseleave", (e) => this.onMouseUp(e));
-    }
-
-    onMouseDown(evt) {
-        const pos = getMousePosition(this.canvas, evt);
-        const vertex = getVertexAtPosition(this.graph, pos.x, pos.y);
-        if (vertex) {
-            this.isDraggingVertex = true;
-            this.draggedVertex = vertex;
-            this.clickOffset.x = pos.x - vertex.x;
-            this.clickOffset.y = pos.y - vertex.y;
-        }
-    }
-
-    onMouseUp(evt) {
-        this.isDraggingVertex = false;
-        this.draggedVertex = null;
-    }
-
-    onMouseMove(evt) {
-
-        if (this.isDraggingVertex) {
-            const pos = getMousePosition(this.canvas, evt);
-            this.draggedVertex.x = pos.x - this.clickOffset.x;
-            this.draggedVertex.y = pos.y - this.clickOffset.y;
-            this.onUpdate();
-        }
-    }
-}
-
-class AddVertexHandler {
-    constructor(canvas, graph, onUpdate, toggleButton) {
-        this.canvas = canvas;
-        this.graph = graph;
-        this.onUpdate = onUpdate;
-        this.toggleButton = toggleButton;
-
-        this.buttonEnabled = false;
-        this.keyHeld = false;
-
-        this.canvas.addEventListener("mousedown", (e) => this.onMouseDown(e));
-        window.addEventListener("keydown", (e) => this.keyDown(e));
-        window.addEventListener("keyup", (e) => this.keyUp(e));
-
-        this.toggleButton.addEventListener("click", this.onButtonClick.bind(this));
-    }
-
-    addVertexEnabled() {
-        return (this.keyHeld || this.buttonEnabled);
-    }
-
-    updateButtonVisual() {
-        if (this.addVertexEnabled()) {
-            this.toggleButton.classList.add("active");
-        }
-        else {
-            this.toggleButton.classList.remove("active");
-        }
-    }
-
-    keyDown(evt) {
-        if (evt.key.toLowerCase() === "v") {
-            if (!this.keyHeld) {
-                this.keyHeld = true;
-                this.updateButtonVisual();
-            }
-        }
-    }
-
-    keyUp(evt) {
-        if (evt.key.toLowerCase() === "v") {
-            if (this.keyHeld || this.buttonEnabled) {
-                this.buttonEnabled = false;
-                this.keyHeld = false;
-                this.updateButtonVisual();
-            }
-        }
-    }
-
-    onButtonClick() {
-        this.buttonEnabled = !this.buttonEnabled;
-        this.updateButtonVisual();
-    }
-
-    onMouseDown(evt) {
-        if (this.addVertexEnabled()) {
-
-            // const rect = this.canvas.getBoundingClientRect();
-            // const mouseX = evt.clientX - rect.left;
-            // const mouseY = evt.clientY - rect.top;
-            const pos = getMousePosition(this.canvas, evt);
-
-            // this.graph.vertices.push(new Vertex("n", mouseX, mouseY));
-            this.graph.addVertexAt(pos.x, pos.y);
-            this.onUpdate();
-        }
-    }
-}
-
-class AddEdgeHandler {
-    constructor(canvas, graph, onUpdate, toggleButton) {
-        this.canvas = canvas;
-        this.graph = graph;
-        this.onUpdate = onUpdate;
-        this.toggleButton = toggleButton;
-
-        this.buttonEnabled = false;
-        this.keyHeld = false;
-
-        this.canvas.addEventListener("mousedown", (e) => this.onMouseDown(e));
-        window.addEventListener("keydown", (e) => this.keyDown(e));
-        window.addEventListener("keyup", (e) => this.keyUp(e));
-
-        this.toggleButton.addEventListener("click", this.onButtonClick.bind(this));
-
-        this.v1 = -1;
-        this.v2 = -1;
-
-    }
-
-    addEdgeEnabled() {
-        return (this.keyHeld || this.buttonEnabled);
-    }
-
-    updateButtonVisual() {
-        if (this.addEdgeEnabled()) {
-            this.toggleButton.classList.add("active");
-        }
-        else {
-            this.toggleButton.classList.remove("active");
-        }
-    }
-
-    keyDown(evt) {
-        if (evt.key.toLowerCase() === "e") {
-            if (!this.keyHeld) {
-                this.keyHeld = true;
-                this.updateButtonVisual();
-            }
-        }
-    }
-
-    keyUp(evt) {
-        if (evt.key.toLowerCase() === "e") {
-            if (this.keyHeld || this.buttonEnabled) {
-                this.buttonEnabled = false;
-                this.keyHeld = false;
-                this.updateButtonVisual();
-                if (this.v1 != -1) {
-                    this.graph.vertices[this.v1].color = "white";
-                }
-                this.v1 = -1;
-                this.v2 = -1;
-                this.onUpdate();
-            }
-        }
-    }
-
-    onButtonClick() {
-        this.buttonEnabled = !this.buttonEnabled;
-        this.updateButtonVisual();
-    }
-
-    onMouseDown(evt) {
-        if (!this.addEdgeEnabled()) {
-            return;
-        }
-        const pos = getMousePosition(this.canvas, evt);
-        if (this.v1 != -1) {
-            this.v2 = getVertexIndexAtPosition(this.graph, pos.x, pos.y);
-
-            if (this.v2 != -1 && this.v1 != this.v2) {
-                // Add edge
-                this.graph.addEdge(this.v1, this.v2);
-
-                // Reset vertex indices, colors
-                this.graph.vertices[this.v1].color = "white";
-                this.v1 = -1;
-                this.v2 = -1;
-            }
-        }
-        else {
-            // Choose v1
-            this.v1 = getVertexIndexAtPosition(this.graph, pos.x, pos.y);
-            if (this.v1 != -1) {
-                this.graph.vertices[this.v1].color = "blue";
-            }
-        }
-        this.onUpdate();
-    }
-}
-
-class DeleteVertexEdgeHandler {
-    constructor(canvas, graph, onUpdate, toggleButton) {
-        this.canvas = canvas;
-        this.graph = graph;
-        this.onUpdate = onUpdate;
-        this.toggleButton = toggleButton;
-
-        this.buttonEnabled = false;
-        this.keyHeld = false;
-        this.isMouseDown = false;
-
-        this.canvas.addEventListener("mousedown", (e) => this.onMouseDown(e));
-        this.canvas.addEventListener("mousemove", (e) => this.onMouseMove(e));
-        this.canvas.addEventListener("mouseup", (e) => this.onMouseUp(e));
-        window.addEventListener("keydown", (e) => this.keyDown(e));
-        window.addEventListener("keyup", (e) => this.keyUp(e));
-
-        this.toggleButton.addEventListener("click", this.onButtonClick.bind(this));
-    }
-
-    deleteEnabled() {
-        return (this.keyHeld || this.buttonEnabled);
-    }
-
-    updateButtonVisual() {
-        if (this.deleteEnabled()) {
-            this.toggleButton.classList.add("active");
-        }
-        else {
-            this.toggleButton.classList.remove("active");
-        }
-    }
-
-    keyDown(evt) {
-        if (evt.key.toLowerCase() === "d") {
-            if (!this.keyHeld) {
-                this.keyHeld = true;
-                this.updateButtonVisual();
-            }
-        }
-    }
-
-    keyUp(evt) {
-        if (evt.key.toLowerCase() === "d") {
-            if (this.keyHeld || this.buttonEnabled) {
-                this.buttonEnabled = false;
-                this.keyHeld = false;
-                this.updateButtonVisual();
-                this.onUpdate();
-            }
-        }
-    }
-
-    onButtonClick() {
-        this.buttonEnabled = !this.buttonEnabled;
-        this.updateButtonVisual();
-    }
-
-    onMouseDown(evt) {
-        this.isMouseDown = true;
-        if (this.deleteEnabled()) {
-
-            const pos = getMousePosition(this.canvas, evt);
-
-            // Vertex Deletion
-            const vertexIndex = getVertexIndexAtPosition(this.graph, pos.x, pos.y);
-            if (vertexIndex != -1) {
-                this.graph.deleteVertexAtIndex(vertexIndex);
-                this.onUpdate();
-            }
-
-            // Edge Deletion
-            const edge = getEdgeAtPosition(this.graph, pos)
-            if(edge) {
-                this.graph.deleteEdge(edge.v1, edge.v2);
-                this.onUpdate();
-            }
-        }
-    }
-
-    onMouseMove (evt) {
-        if (this.deleteEnabled() && this.isMouseDown) {
-
-            const pos = getMousePosition(this.canvas, evt);
-
-            // Vertex Deletion
-            const vertexIndex = getVertexIndexAtPosition(this.graph, pos.x, pos.y);
-            if (vertexIndex != -1) {
-                this.graph.deleteVertexAtIndex(vertexIndex);
-                this.onUpdate();
-            }
-
-            // Edge Deletion
-            const edge = getEdgeAtPosition(this.graph, pos)
-            if(edge) {
-                this.graph.deleteEdge(edge.v1, edge.v2);
-                this.onUpdate();
-            }
-        }
-    }
-
-    onMouseUp(evt) {
-        this.isMouseDown = false;
-    }
-}
+import { DragHandler, AddVertexHandler, AddEdgeHandler, DeleteVertexEdgeHandler } from "./handlers.js";
 
 export class GraphCanvas {
     constructor(canvas, graph) {
@@ -328,16 +16,99 @@ export class GraphCanvas {
         this.pendulumDirection = 1;
 
         // Handlers
-        this.dragHandler = new DragHandler(canvas, graph, () => this.render());
+        this.handlers = {
+            drag: {
+                handler: new DragHandler(canvas, graph, () => this.render()),
+                button: null
+            },
+            v: {
+                handler: new AddVertexHandler(canvas, graph, () => this.render()),
+                button: document.getElementById("button_add_vertex")
+            },
+            e: {
+                handler: new AddEdgeHandler(canvas, graph, () => this.render()),
+                button: document.getElementById("button_add_edge")
+            },
+            d: {
+                handler: new DeleteVertexEdgeHandler(canvas, graph, () => this.render()),
+                button: document.getElementById("button_delete")
+            }
+        };
 
-        const buttonAddVertex = document.getElementById("button_add_vertex");
-        this.addVertexHandler = new AddVertexHandler(canvas, graph, () => this.render(), buttonAddVertex);
+        this.activeHandler = this.handlers["drag"].handler;
+        this.isKeyHeld = false;
+        this.heldKey = null;
 
-        const buttonAddEdge = document.getElementById("button_add_edge");
-        this.addVertexHandler = new AddEdgeHandler(canvas, graph, () => this.render(), buttonAddEdge);
+        // Listeners
+        this.canvas.addEventListener("mousedown", (e) => this.activeHandler.onMouseDown(e));
+        this.canvas.addEventListener("mouseup", (e) => this.activeHandler.onMouseUp(e));
+        this.canvas.addEventListener("mousemove", (e) => this.activeHandler.onMouseMove(e));
+        this.canvas.addEventListener("mouseleave", (e) => this.activeHandler.onMouseLeave(e));
 
-        const buttonDeleteVertexEdge = document.getElementById("button_delete");
-        this.deleteVertexEdgeHandler = new DeleteVertexEdgeHandler(canvas, graph, () => this.render(), buttonDeleteVertexEdge);
+        window.addEventListener("keydown", (e) => this.keyDown(e));
+        window.addEventListener("keyup", (e) => this.keyUp(e));
+
+        for (const { button } of Object.values(this.handlers)) {
+            if (button) {
+                button.addEventListener("click", (e) => this.buttonToggle(button));
+            }
+        }
+
+    }
+
+    clearButtonHighlights() {
+        for (const { button } of Object.values(this.handlers)) {
+            if (button) button.classList.remove("active");
+        }
+    }
+
+    buttonToggle(button) {
+
+        if (!button.classList.contains("active")) {
+            // Activate
+            this.clearButtonHighlights();
+            button.classList.add("active");
+
+            // Select the active handler
+            for (const { handler, button: btn } of Object.values(this.handlers)) {
+                if (btn == button) {
+                    this.activeHandler = handler;
+                    break;
+                }
+            }
+        }
+        else {
+            // Disactive
+            this.clearButtonHighlights();
+            button.classList.remove("active");
+            this.activeHandler.disengage();
+            this.activeHandler = this.handlers["drag"].handler;
+        }
+    }
+
+    keyDown(evt) {
+
+        const pressedKey = evt.key.toLowerCase();
+        if (this.handlers[pressedKey]) {
+            if ((!this.isKeyHeld || this.heldKey != pressedKey) && !evt.metaKey) {
+                this.clearButtonHighlights();
+                this.isKeyHeld = true;
+                this.heldKey = pressedKey;
+
+                this.activeHandler = this.handlers[pressedKey].handler;
+                this.handlers[pressedKey].button.classList.add("active");
+            }
+        }
+    }
+
+    keyUp(evt) {
+        const pressedKey = evt.key.toLowerCase();
+        if (this.handlers[pressedKey] && this.isKeyHeld) {
+            this.clearButtonHighlights();
+            this.isKeyHeld = false;
+            this.activeHandler.disengage();
+            this.activeHandler = this.handlers["drag"].handler;
+        }
     }
 
     resizeCanvas() {
@@ -352,7 +123,7 @@ export class GraphCanvas {
 
         ctx.font = "20px Verdana";
         ctx.textBaseline = "middle";
-        
+
         // Print Graph Order and Size
         ctx.textAlign = "left";
         ctx.fillText("Order:", 50, 100);
@@ -362,9 +133,9 @@ export class GraphCanvas {
         const size = this.graph.getSize();
         ctx.fillText(String(order), 160, 100);
         ctx.fillText(String(size), 160, 130);
-        
+
         ctx.textAlign = "center";
-        
+
         // Draw edges
         ctx.strokeStyle = "black";
         ctx.lineWidth = 2;

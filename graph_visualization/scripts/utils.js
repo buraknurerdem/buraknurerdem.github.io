@@ -7,22 +7,36 @@ export function getMousePosition(canvas, evt) {
 }
 
 export function getVertexAtPosition(graph, x, y) {
-    return graph.vertices.find(vertex => {
-        const dx = vertex.x - x;
-        const dy = vertex.y - y;
-        return Math.sqrt(dx * dx + dy * dy) <= (graph.vertexRadius + 2);
-    })
+
+    const order = graph.vertices.length;
+
+    // Loop backwards since draw loop is forwards
+    // This allows to interact with the vertex that is in front
+    for (let i = order - 1; i >= 0; i--) {
+        const dx = graph.vertices[i].x - x;
+        const dy = graph.vertices[i].y - y;
+        if(Math.sqrt(dx * dx + dy * dy) <= (graph.vertexRadius + 2))
+            return graph.vertices[i];
+    }
+    return false;
 }
 
 export function getVertexIndexAtPosition(graph, x, y) {
-    return graph.vertices.findIndex(vertex => {
-        const dx = vertex.x - x;
-        const dy = vertex.y - y;
-        return Math.sqrt(dx * dx + dy * dy) <= (graph.vertexRadius + 2);
-    })
+
+    const order = graph.vertices.length;
+
+    // Loop backwards since draw loop is forwards
+    // This allows to interact with the vertex that is in front
+    for (let i = order - 1; i >= 0; i--) {
+        const dx = graph.vertices[i].x - x;
+        const dy = graph.vertices[i].y - y;
+        if(Math.sqrt(dx * dx + dy * dy) <= (graph.vertexRadius + 2))
+            return i;
+    }
+    return -1;
 }
 
-export function isPointCloseToLineSegment(a, b, pos, tolerance) {
+function isPointCloseToLineSegment(a, b, pos, tolerance) {
 
     // Calculate projection factor t
     const dx = b.x - a.x;
@@ -66,7 +80,7 @@ export function getEdgeAtPosition(graph, pos) {
             if (isPointCloseToLineSegment(v1Coord, v2Coord, pos, tolerance)) {
                 console.log(i, j)
                 // graph.deleteEdge(i, j);
-                return {v1:i, v2:j};
+                return { v1: i, v2: j };
             }
         }
     }

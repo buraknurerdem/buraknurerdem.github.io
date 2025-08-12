@@ -14,16 +14,33 @@ body {
 .left_panel {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    /* padding: 10px; */
     background-color: #2d2d2d;
     color: white;
-    width: 250px; /* Fixed width */
+    width: 250px;
     box-sizing: border-box;
 }
 
-.back_button {
-    margin-bottom: 10px;
+.homepage_button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 100%;
 }
+.homepage_button:hover {
+    background-color: #777;
+}
+
+.homepage_button:active{
+    background-color: #ccc;
+}
+
+.text_area{
+    margin: 10px;
+}
+
 
 /* Resizer */
 .resizer {
@@ -31,9 +48,7 @@ body {
     cursor: col-resize;
     background-color: #444;
 }
-.resizer:hover {
-    background-color: #666;
-}
+
 
 /* Right panel */
 .right_panel {
